@@ -5,7 +5,7 @@
 # optionally set based on the following priorities:
 #
 # 1. Env. var. for specific option:
-#       
+#
 #       SUNINDEXTYPE -- "64" or "32"
 #       SUNBUILDTYPE -- "OPT" or "DBG"
 #       SUNOPTFLAGS -- specific optimization flags to use
@@ -18,7 +18,7 @@
 #       PETSCDIR -- PETSc installation location
 #
 # 2. Default values for specific hosts (hard-coded in this file); the
-#    hostname is either set by the environment variable HOSTNAME, or
+#    hostname is either set by the environment variable HOST, or
 #    is obtained by calling the 'hostname' command
 #
 # 3. Default Spack installation locations
@@ -30,7 +30,7 @@
 
 # determine machine "name" based on 'HOST' environment variable, or
 # if that is unset, then via the shell 'hostname' command
-HOST=${HOSTNAME:-`hostname`}
+HOST=${HOST:-`hostname`}
 
 # set hostname-specific defaults
 if [ $HOST == "longclaw" ]
@@ -38,7 +38,7 @@ then
 
   HOST_MPIDIR=/usr/local/mpich-3.3/gnu
   HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
-  HOST_LAPACKLIB="-L/usr/local/openblas-0.3.6/gnu/lib -lopenblas"
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.6/gnu/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
   HOST_PETSCDIR=
 
@@ -47,18 +47,18 @@ then
 
   HOST_MPIDIR=/usr/local/mpich-3.3/gnu
   HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
-  HOST_LAPACKLIB="-L/usr/local/openblas-0.3.6/gnu/lib -lopenblas"
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.6/gnu/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
   HOST_PETSCDIR=/usr/local/petsc-3.11.3/gnu
 
-elif [ $HOST == "descartes.local" ]
+elif [ $HOST == "descartes" ]
 then
 
   HOST_MPIDIR=/usr/local/mpich-3.3/gnu
-  HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
-  HOST_LAPACKLIB="-L/usr/local/openblas-0.3.6/gnu/lib -lopenblas"
-  HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
-  HOST_PETSCDIR=/usr/local/petsc-3.11.3/gnu
+  HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gnu
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.6/clang/lib/libopenblas.a
+  HOST_HYPREDIR=/usr/local/hypre-2.15.1/gnu
+  HOST_PETSCDIR=
 
 else
 
@@ -70,7 +70,7 @@ else
   then
     HOST_MPIDIR=`spack location -i openmpi`
   else
-    HOST_MPIDIR=/usr/bin
+    HOST_MPIDIR=/usr
   fi
   if [ spack location -i suite-sparse ];
   then
@@ -105,22 +105,22 @@ fi
 SUNBUILDTYPE=${SUNBUILDTYPE:-"OPT"}
 if [ $SUNBUILDTYPE == "OPT" ]
 then
-  export SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_opt"}
-  export SUNEXAMPLEPREFIX=${SUNEXAMPLEPREFIX:-"$PWD/../example_opt"}
-  export SUNOPTFLAGS=${SUNOPTFLAGS:-"-O3 -fPIC"}
+  SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_opt"}
+  SUNEXAMPLEPREFIX=${SUNEXAMPLEPREFIX:-"$PWD/../example_opt"}
+  SUNOPTFLAGS=${SUNOPTFLAGS:-"-O3"}
 else
-  export SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_dbg"}
-  export SUNEXAMPLEPREFIX=${SUNEXAMPLEPREFIX:-"$PWD/../example_dbg"}
-  export SUNOPTFLAGS=${SUNOPTFLAGS:-"-O0 -g -fPIC"}
+  SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_dbg"}
+  SUNEXAMPLEPREFIX=${SUNEXAMPLEPREFIX:-"$PWD/../example_dbg"}
+  SUNOPTFLAGS=${SUNOPTFLAGS:-"-O0 -g"}
 fi
 
-# export build variables based on environment or defaults above
-export SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
-export MPIDIR=${MPIDIR:-${HOST_MPIDIR}}
-export KLUDIR=${KLUDIR:-${HOST_KLUDIR}}
-export LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
-export HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
-export PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
+# set final build variables based on environment or defaults above
+SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
+MPIDIR=${MPIDIR:-${HOST_MPIDIR}}
+KLUDIR=${KLUDIR:-${HOST_KLUDIR}}
+LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
+HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
+PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
 
 
 # output final build configuration setup
