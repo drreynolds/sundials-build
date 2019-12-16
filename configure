@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# clean from any previous build
+./cleanup
+
+# source machines file
+./machines.in
+
+# set source directory based on command-line argument (if specified)
+if [ -n "$1" ]
+then
+    SRCDIR=$1
+else
+    SRCDIR=../develop
+fi
+echo "  "
+echo "Configuring SUNDIALS from source code in $SRCDIR"
+echo "  "
+
+# optionally build with PETSc
+if [[ ! -z "$PETSCDIR" ]]
+then
+  PETSC_CONF="-DPETSC_ENABLE:BOOL=1 -DPETSC_INCLUDE_DIR:STRING=$PETSCDIR/include -DPETSC_LIBRARY_DIR:FILEPATH=$PETSCDIR/lib"
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PETSCDIR/lib
+else
+  PETSC_CONF="-DPETSC_ENABLE:BOOL=0"
+fi
+
+# optionally build with HYPRE
+if [[ ! -z "$HYPREDIR" ]]
+then
+  HYPRE_CONF="-DHYPRE_ENABLE:BOOL=1 -DHYPRE_INCLUDE_DIR:STRING=$HYPREDIR/include -DHYPRE_LIBRARY_DIR:FILEPATH=$HYPREDIR/lib"
+else
+  HYPRE_CONF="-DHYPRE_ENABLE:BOOL=0"
+fi
+
+# optionally build with KLU
+if [[ ! -z "$KLUDIR" ]]
+then
+  KLU_CONF="-DKLU_ENABLE:BOOL=1 -DKLU_INCLUDE_DIR:STRING=$KLUDIR/include -DKLU_LIBRARY_DIR:FILEPATH=$KLUDIR/lib"
+else
+  KLU_CONF="-DKLU_ENABLE:BOOL=0"
+fi
+
+# configure with cmake
+cmake \
+ -DCMAKE_INSTALL_PREFIX:PATH="$SUNINSTALLPREFIX" \
+ -DEXAMPLES_INSTALL_PATH:PATH="$SUNEXAMPLEPREFIX" \
+ -DCMAKE_C_COMPILER=$MPIDIR/bin/mpicc \
+ -DMPI_C_COMPILER=$MPIDIR/bin/mpicc \
+ -DCMAKE_Fortran_COMPILER=$MPIDIR/bin/mpif90 \
+ -DMPI_Fortran_COMPILER=$MPIDIR/bin/mpif90 \
+ -DCMAKE_CXX_COMPILER=$MPIDIR/bin/mpicxx \
+ -DMPI_CXX_COMPILER=$MPIDIR/bin/mpicxx \
+ -DMPIEXEC_EXECUTABLE=$MPIDIR/bin/mpiexec \
+ -DCMAKE_MACOSX_RPATH=ON \
+ -DCMAKE_C_FLAGS:STRING="$SUNOPTFLAGS" \
+ -DCMAKE_Fortran_FLAGS:STRING="$SUNOPTFLAGS" \
+ -DCMAKE_CXX_FLAGS:STRING="$SUNOPTFLAGS" \
+ -DOpenMP_C_FLAGS:STRING="-fopenmp" \
+ -DOpenMP_CXX_FLAGS:STRING="-fopenmp" \
+ -DSUNDIALS_PRECISION:STRING="double" \
+ -DSUNDIALS_INDEX_SIZE:STRING="$SUNINDEXTYPE" \
+ -DEXAMPLES_ENABLE_C:BOOL="1" \
+ -DEXAMPLES_ENABLE_CXX:BOOL="1" \
+ -DEXAMPLES_ENABLE_F90:BOOL="1" \
+ -DEXAMPLES_INSTALL:BOOL="1" \
+ -DSUNDIALS_TEST_DEVTESTS=ON \
+ -DF77_INTERFACE_ENABLE:BOOL="1" \
+ -DF2003_INTERFACE_ENABLE:BOOL="1" \
+ -DMPI_ENABLE:BOOL="1" \
+ -DOPENMP_ENABLE:BOOL="1" \
+ -DPTHREAD_ENABLE:BOOL="1" \
+ -DBUILD_SHARED_LIBS:BOOL="1" \
+ -DLAPACK_ENABLE:BOOL="1" \
+ -DLAPACK_LIBRARIES:STRING="$LAPACKLIB" \
+ $KLU_CONF \
+ $HYPRE_CONF \
+ $PETSC_CONF \
+ $SRCDIR
+

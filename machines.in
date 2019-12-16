@@ -1,0 +1,139 @@
+#!/bin/bash -e
+#
+# This file contains installation locations for various SUNDIALS
+# dependencies on different computers.  Each value will be
+# optionally set based on the following priorities:
+#
+# 1. Env. var. for specific option:
+#       
+#       SUNINDEXTYPE -- "64" or "32"
+#       SUNBUILDTYPE -- "OPT" or "DBG"
+#       SUNOPTFLAGS -- specific optimization flags to use
+#       SUNINSTALLPREFIX -- desired installation location
+#       SUNEXAMPLEPREFIX -- desired example install location
+#       MPIDIR -- MPI installation location
+#       KLUDIR -- KLU installation location
+#       LAPACKLIB -- LAPACK libraries (e.g., -L/usr/lib -llapack)
+#       HYPREDIR -- HYPRE installation location
+#       PETSCDIR -- PETSc installation location
+#
+# 2. Default values for specific hosts (hard-coded in this file); the
+#    hostname is either set by the environment variable HOSTNAME, or
+#    is obtained by calling the 'hostname' command
+#
+# 3. Default Spack installation locations
+#
+# 4. Default values
+#
+# Daniel R. Reynolds
+# SMU Mathematics
+
+# determine machine "name" based on 'HOST' environment variable, or
+# if that is unset, then via the shell 'hostname' command
+HOST=${HOSTNAME:-`hostname`}
+
+# set hostname-specific defaults
+if [ $HOST == "longclaw" ]
+then
+
+  HOST_MPIDIR=/usr/local/mpich-3.3/gnu
+  HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
+  HOST_LAPACKLIB="-L/usr/local/openblas-0.3.6/gnu/lib -lopenblas"
+  HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
+  HOST_PETSCDIR=
+
+elif [ $HOST == "cauchy" ]
+then
+
+  HOST_MPIDIR=/usr/local/mpich-3.3/gnu
+  HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
+  HOST_LAPACKLIB="-L/usr/local/openblas-0.3.6/gnu/lib -lopenblas"
+  HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
+  HOST_PETSCDIR=/usr/local/petsc-3.11.3/gnu
+
+elif [ $HOST == "descartes.local" ]
+then
+
+  HOST_MPIDIR=/usr/local/mpich-3.3/gnu
+  HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
+  HOST_LAPACKLIB="-L/usr/local/openblas-0.3.6/gnu/lib -lopenblas"
+  HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
+  HOST_PETSCDIR=/usr/local/petsc-3.11.3/gnu
+
+else
+
+  # check if Spack is installed, and get values from there
+  if [ spack location -i mpich ];
+  then
+    HOST_MPIDIR=`spack location -i mpich`
+  elif [ spack location -i openmpi ]
+  then
+    HOST_MPIDIR=`spack location -i openmpi`
+  else
+    HOST_MPIDIR=/usr/bin
+  fi
+  if [ spack location -i suite-sparse ];
+  then
+    HOST_KLUDIR=`spack location -i suite-sparse`
+  else
+    HOST_KLUDIR=
+  fi
+  if [ spack location -i openblas ];
+  then
+    OBDIR=`spack location -i openblas`
+    HOST_LAPACKLIB="-L${OBDIR}/lib -lopenblas"
+  else
+    HOST_LAPACKLIB=
+  fi
+  if [ spack location -i hypre ];
+  then
+    HOST_HYPREDIR=`spack location -i hypre`
+  else
+    HOST_HYPREDIR=
+  fi
+  if [ spack location -i petsc ];
+  then
+    HOST_PETSCDIR=`spack location -i petsc`
+  else
+    HOST_PETSCDIR=
+  fi
+
+fi
+
+
+# set installation paths based on build options
+SUNBUILDTYPE=${SUNBUILDTYPE:-"OPT"}
+if [ $SUNBUILDTYPE == "OPT" ]
+then
+  export SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_opt"}
+  export SUNEXAMPLEPREFIX=${SUNEXAMPLEPREFIX:-"$PWD/../example_opt"}
+  export SUNOPTFLAGS=${SUNOPTFLAGS:-"-O3 -fPIC"}
+else
+  export SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_dbg"}
+  export SUNEXAMPLEPREFIX=${SUNEXAMPLEPREFIX:-"$PWD/../example_dbg"}
+  export SUNOPTFLAGS=${SUNOPTFLAGS:-"-O0 -g -fPIC"}
+fi
+
+# export build variables based on environment or defaults above
+export SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
+export MPIDIR=${MPIDIR:-${HOST_MPIDIR}}
+export KLUDIR=${KLUDIR:-${HOST_KLUDIR}}
+export LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
+export HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
+export PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
+
+
+# output final build configuration setup
+echo "Compiling SUNDIALS on host: $HOST"
+echo "  build type: $SUNBUILDTYPE"
+echo "  index size: $SUNINDEXTYPE"
+echo "  installation location: $SUNINSTALLPREFIX"
+echo "  example location: $SUNEXAMPLEPREFIX"
+echo "  optimization flags: $SUNOPTFLAGS"
+echo "  MPI libraries: $MPIDIR"
+echo "  KLU libraries: $KLUDIR"
+echo "  LAPACK libraries: $LAPACKLIB"
+echo "  HYPRE libraries: $HYPREDIR"
+echo "  PETSC libraries: $PETSCDIR"
+
+####### End of machines.in #######
