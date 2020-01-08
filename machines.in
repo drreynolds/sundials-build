@@ -32,6 +32,9 @@
 # if that is unset, then via the shell 'hostname' command
 HOST=${HOST:-`hostname`}
 
+# set index type (or use default)
+SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
+
 # set hostname-specific defaults
 if [ $HOST == "longclaw" ]
 then
@@ -41,6 +44,7 @@ then
   HOST_LAPACKLIB=/usr/local/openblas-0.3.6/gnu/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
   HOST_PETSCDIR=
+  HOST_SLUDISTDIR=
 
 elif [ $HOST == "cauchy" ]
 then
@@ -50,7 +54,8 @@ then
   HOST_LAPACKLIB=/usr/local/openblas-0.2.20/gnu/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.15.1/gnu
   HOST_PETSCDIR=
-  
+  HOST_SLUDISTDIR=
+
 elif [ $HOST == "descartes" ]
 then
 
@@ -59,6 +64,13 @@ then
   HOST_LAPACKLIB=/usr/local/openblas-0.3.6/clang/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.15.1/gnu
   HOST_PETSCDIR=
+  # if [ $SUNINDEXTYPE == "64" ]
+  # then
+  #   HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gnu_int64
+  # else
+  #   HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gnu_int32
+  # fi
+  HOST_SLUDISTDIR=
 
 else
 
@@ -97,6 +109,12 @@ else
   else
     HOST_PETSCDIR=
   fi
+  if [ spack location -i superlu-dist ];
+  then
+    HOST_SLUDISTDIR=`spack location -i superlu-dist`
+  else
+    HOST_SLUDISTDIR=
+  fi
 
 fi
 
@@ -115,12 +133,12 @@ else
 fi
 
 # set final build variables based on environment or defaults above
-SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
 MPIDIR=${MPIDIR:-${HOST_MPIDIR}}
 KLUDIR=${KLUDIR:-${HOST_KLUDIR}}
 LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
 HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
 PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
+SLUDISTDIR=${SLUDISTDIR:-${HOST_SLUDISTDIR}}
 
 
 # output final build configuration setup
@@ -135,5 +153,6 @@ echo "  KLU libraries: $KLUDIR"
 echo "  LAPACK libraries: $LAPACKLIB"
 echo "  HYPRE libraries: $HYPREDIR"
 echo "  PETSC libraries: $PETSCDIR"
+echo "  SuperLU-Dist libraries: $SLUDISTDIR"
 
 ####### End of machines.in #######
