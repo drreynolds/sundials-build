@@ -16,5 +16,6 @@ src
 Testing
 fortran*
 *~
+install_manifest.txt
 build.out
 
