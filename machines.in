@@ -7,6 +7,7 @@
 # 1. Env. var. for specific option:
 #
 #       SUNINDEXTYPE -- "64" or "32"
+#       SUNREALTYPE -- "single", "double" or "extended"
 #       SUNBUILDTYPE -- "OPT" or "DBG"
 #       SUNOPTFLAGS -- specific optimization flags to use
 #       SUNINSTALLPREFIX -- desired installation location
@@ -35,6 +36,9 @@ HOST=${HOST:-`hostname`}
 # set index type (or use default)
 SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
 
+# set real type (or use default)
+SUNREALTYPE=${SUNREALTYPE:-"double"}
+
 # set hostname-specific defaults
 if [ $HOST == "longclaw" ]
 then
@@ -60,16 +64,23 @@ elif [ $HOST == "cauchy" ]
 then
 
   HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-8.3
-  HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-8.3
+  HOST_KLUDIR=
+  HOST_HYPREDIR=
+  if [ $SUNREALTYPE == "double" ]
+  then
+    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-8.3
+    HOST_HYPREDIR=/usr/local/hypre-2.18.2/gcc-8.3
+  fi
   HOST_LAPACKLIB=/usr/local/openblas-0.3.7/gcc-8.3/lib/libopenblas.a
-  HOST_HYPREDIR=/usr/local/hypre-2.18.2/gcc-8.3
+  HOST_SLUDISTDIR=
+  HOST_PETSCDIR=
   if [ $SUNINDEXTYPE == "32" ]
   then
-    HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gcc-8.3
-    HOST_PETSCDIR=/usr/local/petsc-3.12.3/gcc-8.3
-  else
-    HOST_SLUDISTDIR=
-    HOST_PETSCDIR=
+    if [ $SUNREALTYPE == "double" ]
+    then
+      HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gcc-8.3
+      HOST_PETSCDIR=/usr/local/petsc-3.12.3/gcc-8.3
+    fi
   fi
 
 elif [ $HOST == "descartes" ]
@@ -161,6 +172,7 @@ SLUDISTDIR=${SLUDISTDIR:-${HOST_SLUDISTDIR}}
 echo "Compiling SUNDIALS on host: $HOST"
 echo "  build type: $SUNBUILDTYPE"
 echo "  index size: $SUNINDEXTYPE"
+echo "  realtype: $SUNREALTYPE"
 echo "  installation location: $SUNINSTALLPREFIX"
 echo "  example location: $SUNEXAMPLEPREFIX"
 echo "  optimization flags: $SUNOPTFLAGS"
