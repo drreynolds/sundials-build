@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -rf CMake* CXXTest BlasTest examples Fortran90Test FortranTest include KLUTest LapackTest MPITest src cmake_install.cmake CTestTestfile.cmake install_manifest.txt Makefile Testing SUPERLUMT_TEST HYPRETest PETSCTest Testing_Install DartConfiguration.tcl MPI2Test F2003Test_DIR PosixTimersTest fortran fortran_STATIC fortran_SHARED Testing_Install_All SUPERLUDIST_Test build.out
+rm -rf CMake* CXXTest BlasTest examples Fortran90Test FortranTest include KLUTest LapackTest MPITest src cmake_install.cmake CTestTestfile.cmake install_manifest.txt Makefile Testing SUPERLUMT_TEST HYPRETest PETSCTest PETSC_test test Testing_Install DartConfiguration.tcl MPI2Test F2003Test_DIR PosixTimersTest fortran fortran_STATIC fortran_SHARED Testing_Install_All SUPERLUDIST_Test build.out
