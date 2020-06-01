@@ -17,6 +17,9 @@
 #       LAPACKLIB -- LAPACK libraries (e.g., -L/usr/lib -llapack)
 #       HYPREDIR -- HYPRE installation location
 #       PETSCDIR -- PETSc installation location
+#       GENERATEANSWERS -- if set to nonzero, then machine-specific
+#                          test 'answers' will be generated and placed
+#                          in the machine-specific 'answers' folder
 #
 # 2. Default values for specific hosts (hard-coded in this file); the
 #    hostname is either set by the environment variable HOST, or
@@ -43,6 +46,7 @@ SUNREALTYPE=${SUNREALTYPE:-"double"}
 if [ $HOST == "longclaw" ]
 then
 
+  HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/usr/local/mpich-3.3/gnu
   HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
   HOST_LAPACKLIB=/usr/local/openblas-0.3.6/gnu/lib/libopenblas.a
@@ -53,6 +57,7 @@ then
 elif [ $HOST == "behemoth" ]
 then
 
+  HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-7.4
   HOST_KLUDIR=
   HOST_HYPREDIR=
@@ -73,6 +78,7 @@ then
 elif [ $HOST == "cauchy" ]
 then
 
+  HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-8.3
   HOST_KLUDIR=
   HOST_HYPREDIR=
@@ -96,6 +102,7 @@ then
 elif [ $HOST == "descartes" ]
 then
 
+  HOST_ANSWERS=/Users/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/usr/local/mpich-3.3/gnu
   HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gnu
   HOST_LAPACKLIB=/usr/local/openblas-0.3.6/clang/lib/libopenblas.a
@@ -158,6 +165,7 @@ fi
 
 # set installation paths based on build options
 SUNBUILDTYPE=${SUNBUILDTYPE:-"OPT"}
+ANSWERS=${HOST_ANSWERS:-"$PWD/../local_answers"}
 if [ $SUNBUILDTYPE == "OPT" ]
 then
   SUNINSTALLPREFIX=${SUNINSTALLPREFIX:-"$PWD/../install_opt"}
@@ -176,7 +184,7 @@ LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
 HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
 PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
 SLUDISTDIR=${SLUDISTDIR:-${HOST_SLUDISTDIR}}
-
+GENERATEANSWERS=${GENERATEANSWERS:-"0"}
 
 # output final build configuration setup
 echo "Compiling SUNDIALS on host: $HOST"
@@ -185,6 +193,8 @@ echo "  index size: $SUNINDEXTYPE"
 echo "  realtype: $SUNREALTYPE"
 echo "  installation location: $SUNINSTALLPREFIX"
 echo "  example location: $SUNEXAMPLEPREFIX"
+echo "  'answers' location: $ANSWERS"
+echo "  generating answers: $GENERATEANSWERS"
 echo "  optimization flags: $SUNOPTFLAGS"
 echo "  MPI libraries: $MPIDIR"
 echo "  KLU libraries: $KLUDIR"

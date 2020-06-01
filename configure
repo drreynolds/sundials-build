@@ -17,6 +17,14 @@ echo "  "
 echo "Configuring SUNDIALS from source code in $SRCDIR"
 echo "  "
 
+# optionally generate test answers
+if [ $GENERATEANSWERS == "0" ]
+then
+  SUNDIALS_TEST_ANSWERS_CONF=" -DSUNDIALS_TEST_ANSWER_DIR=$ANSWERS"
+else
+  SUNDIALS_TEST_ANSWERS_CONF=" -DSUNDIALS_TEST_OUTPUT_DIR=$ANSWERS"
+fi
+
 # optionally build with PETSc
 if [[ ! -z "$PETSCDIR" ]]
 then
@@ -94,4 +102,5 @@ cmake \
  $HYPRE_CONF \
  $PETSC_CONF \
  $SLUDIST_CONF \
+ $SUNDIALS_TEST_ANSWERS_CONF \
  $SRCDIR
