@@ -18,11 +18,14 @@ echo "Configuring SUNDIALS from source code in $SRCDIR"
 echo "  "
 
 # optionally generate test answers
-if [ $GENERATEANSWERS == "0" ]
+SUNDIALS_TEST_ANSWERS_CONF=" -DSUNDIALS_TEST_ANSWER_DIR=$ANSWERS"
+if [ $GENERATEANSWERS == "1" ]
 then
-  SUNDIALS_TEST_ANSWERS_CONF=" -DSUNDIALS_TEST_ANSWER_DIR=$ANSWERS"
-else
   SUNDIALS_TEST_ANSWERS_CONF=" -DSUNDIALS_TEST_OUTPUT_DIR=$ANSWERS"
+fi
+if [ $GENERATEANSWERS == "-1" ]
+then
+  SUNDIALS_TEST_ANSWERS_CONF=" "
 fi
 
 # optionally build with PETSc

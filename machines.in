@@ -17,9 +17,10 @@
 #       LAPACKLIB -- LAPACK libraries (e.g., -L/usr/lib -llapack)
 #       HYPREDIR -- HYPRE installation location
 #       PETSCDIR -- PETSc installation location
-#       GENERATEANSWERS -- if set to nonzero, then machine-specific
-#                          test 'answers' will be generated and placed
-#                          in the machine-specific 'answers' folder
+#       GENERATEANSWERS -- generate/use machine-specific test 'answers'
+#             1 -> generate 'answers', place in HOST_ANSWERS
+#             0 -> use answers in HOST_ANSWERS [default]
+#            -1 -> use repository answers
 #
 # 2. Default values for specific hosts (hard-coded in this file); the
 #    hostname is either set by the environment variable HOST, or
