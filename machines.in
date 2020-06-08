@@ -194,8 +194,11 @@ echo "  index size: $SUNINDEXTYPE"
 echo "  realtype: $SUNREALTYPE"
 echo "  installation location: $SUNINSTALLPREFIX"
 echo "  example location: $SUNEXAMPLEPREFIX"
-echo "  'answers' location: $ANSWERS"
-echo "  generating answers: $GENERATEANSWERS"
+if [ ! $GENERATEANSWERS == "-1" ]
+then
+  echo "  'answers' location: $ANSWERS"
+  echo "  generating answers: $GENERATEANSWERS"
+fi
 echo "  optimization flags: $SUNOPTFLAGS"
 echo "  MPI libraries: $MPIDIR"
 echo "  KLU libraries: $KLUDIR"
