@@ -109,6 +109,12 @@ then
   HOST_LAPACKLIB=/usr/local/openblas-0.3.6/clang/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.15.1/gnu
   HOST_PETSCDIR=
+  if [ $SUNBUILDTYPE == "OPT" ]
+  then
+      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O3"
+  else
+      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O0 -g"
+  fi
   # if [ $SUNINDEXTYPE == "64" ]
   # then
   #   HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gnu_int64
