@@ -81,9 +81,9 @@ cmake \
  -DMPI_CXX_COMPILER=$MPIDIR/bin/mpicxx \
  -DMPIEXEC_EXECUTABLE=$MPIDIR/bin/mpiexec \
  -DCMAKE_MACOSX_RPATH=ON \
- -DCMAKE_C_FLAGS:STRING="$SUNOPTFLAGS -fPIC -std=c99 -Wall -Wpedantic -Werror" \
+ -DCMAKE_C_FLAGS:STRING="$SUNOPTFLAGS -fPIC -std=c99 -Wall -Wpedantic" \
  -DCMAKE_Fortran_FLAGS:STRING="$SUNOPTFLAGS -fPIC -Wall -Wpedantic -ffpe-summary=none" \
- -DCMAKE_CXX_FLAGS:STRING="$SUNOPTFLAGS -fPIC -std=c++11 -Wall -Wpedantic -Werror" \
+ -DCMAKE_CXX_FLAGS:STRING="$SUNOPTFLAGS -fPIC -std=c++11 -Wall -Wpedantic" \
  -DOpenMP_C_FLAGS:STRING="-fopenmp" \
  -DOpenMP_CXX_FLAGS:STRING="-fopenmp" \
  -DSUNDIALS_PRECISION:STRING=$SUNREALTYPE \
