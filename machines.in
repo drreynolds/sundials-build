@@ -17,6 +17,9 @@
 #       LAPACKLIB -- LAPACK libraries (e.g., -L/usr/lib -llapack)
 #       HYPREDIR -- HYPRE installation location
 #       PETSCDIR -- PETSc installation location
+#       CUDADIR -- CUDA installation location
+#       CUDAARCH -- CUDA architecture
+#       RAJADIR -- RAJA installation location
 #       GENERATEANSWERS -- generate/use machine-specific test 'answers'
 #             1 -> generate 'answers', place in HOST_ANSWERS
 #             0 -> use answers in HOST_ANSWERS [default]
@@ -75,6 +78,9 @@ then
   fi
   HOST_PETSCDIR=
   HOST_SLUDISTDIR=
+  HOST_CUDADIR=/usr/local/cuda
+  HOST_CUDAARCH=61
+  HOST_RAJADIR=/usr/local/raja-0.13.0/gcc-7.4
 
 elif [ $HOST == "cauchy" ]
 then
@@ -166,6 +172,20 @@ else
   else
     HOST_SLUDISTDIR=
   fi
+  if [ spack location -i cuda ];
+  then
+    HOST_CUDADIR=`spack location -i cuda`
+    HOST_CUDAARCH=61
+  else
+    HOST_CUDADIR=
+    HOST_CUDAARCH=
+  fi
+  if [ spack location -i raja ];
+  then
+    HOST_RAJADIR=`spack location -i raja`
+  else
+    HOST_RAJADIR=
+  fi
 
 fi
 
@@ -191,6 +211,9 @@ LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
 HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
 PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
 SLUDISTDIR=${SLUDISTDIR:-${HOST_SLUDISTDIR}}
+CUDADIR=${CUDADIR:-${HOST_CUDADIR}}
+CUDAARCH=${CUDAARCH:-${HOST_CUDAARCH}}
+RAJADIR=${RAJADIR:-${HOST_RAJADIR}}
 GENERATEANSWERS=${GENERATEANSWERS:-"0"}
 
 # output final build configuration setup
@@ -212,5 +235,8 @@ echo "  LAPACK libraries: $LAPACKLIB"
 echo "  HYPRE libraries: $HYPREDIR"
 echo "  PETSC libraries: $PETSCDIR"
 echo "  SuperLU-Dist libraries: $SLUDISTDIR"
+echo "  CUDA install location: $CUDADIR"
+echo "  CUDA architecture: $CUDAARCH"
+echo "  RAJA libraries: $RAJADIR"
 
 ####### End of machines.in #######
