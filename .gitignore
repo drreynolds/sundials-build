@@ -20,4 +20,5 @@ fortran*
 *~
 install_manifest.txt
 build.out
-
+SUNDIALSConfig.cmake
+SUNDIALSConfigVersion.cmake
