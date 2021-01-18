@@ -101,7 +101,6 @@ then
   then
     if [ $SUNREALTYPE == "double" ]
     then
-      HOST_SLUDISTDIR=/usr/local/superlu-dist-6.4.0/gcc-8.4
       HOST_PETSCDIR=/usr/local/petsc-3.14.1/gcc-8.4
     fi
   fi
