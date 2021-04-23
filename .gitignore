@@ -10,6 +10,7 @@ MPI*
 Makefile
 Posix*
 cmake*
+*.cmake
 examples
 include
 src
@@ -22,3 +23,4 @@ install_manifest.txt
 build.out
 SUNDIALSConfig.cmake
 SUNDIALSConfigVersion.cmake
+
