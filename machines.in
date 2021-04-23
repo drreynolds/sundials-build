@@ -86,25 +86,27 @@ elif [ $HOST == "cauchy" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-8.3
+  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-8.4
   HOST_KLUDIR=
   HOST_HYPREDIR=
   if [ $SUNREALTYPE == "double" ]
   then
-    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-8.3
-    HOST_HYPREDIR=/usr/local/hypre-2.18.2/gcc-8.3
+    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-8.4
+    HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-8.4
   fi
-  HOST_LAPACKLIB=/usr/local/openblas-0.3.7/gcc-8.3/lib/libopenblas.a
+  HOST_LAPACKLIB=
   HOST_SLUDISTDIR=
   HOST_PETSCDIR=
   if [ $SUNINDEXTYPE == "32" ]
   then
     if [ $SUNREALTYPE == "double" ]
     then
-      HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gcc-8.3
-      HOST_PETSCDIR=/usr/local/petsc-3.12.3/gcc-8.3
+      HOST_PETSCDIR=/usr/local/petsc-3.14.1/gcc-8.4
     fi
   fi
+  HOST_CUDADIR=/usr/local/cuda
+  HOST_CUDAARCH=61
+  HOST_RAJADIR=/usr/local/raja-0.13.0/gcc-8.4
 
 elif [ $HOST == "descartes" ]
 then
