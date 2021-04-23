@@ -10,6 +10,7 @@ MPI*
 Makefile
 Posix*
 cmake*
+*.cmake
 examples
 include
 src
@@ -20,4 +21,3 @@ fortran*
 *~
 install_manifest.txt
 build.out
-
