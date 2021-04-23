@@ -131,6 +131,23 @@ then
   # fi
   HOST_SLUDISTDIR=
 
+elif [ $HOST == "maneframe2" ]
+then
+
+  HOST_ANSWERS=/users/reynolds/research/sundials/local_answers
+  HOST_MPIDIR=/hpc/applications/hpc-x/hpcx-v2.1.0/gcc-7.3/hpcx-ompi/
+  HOST_KLUDIR=
+  HOST_HYPREDIR=
+  HOST_LAPACKLIB=
+  HOST_PETSCDIR=
+  HOST_SLUDISTDIR=
+  #HOST_CUDADIR=/users/reynolds/sw/cuda-11.3.0
+  #HOST_CUDAARCH=60
+  #HOST_RAJADIR=/users/reynolds/sw/raja-0.13.0
+  HOST_CUDADIR=
+  HOST_CUDAARCH=
+  HOST_RAJADIR=
+
 else
 
   # check if Spack is installed, and get values from there
