@@ -47,7 +47,7 @@ SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
 SUNREALTYPE=${SUNREALTYPE:-"double"}
 
 # set hostname-specific defaults
-if [ $HOST == "longclaw" ]
+if [ $HOST == "Longclaw" ]
 then
 
   HOST_ANSWERS=/home/drreynolds/research/Sundials/local_answers
