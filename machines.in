@@ -119,9 +119,12 @@ then
       HOST_PETSCDIR=/usr/local/petsc-3.14.1
     fi
   fi
-  HOST_CUDADIR=/usr/local/cuda
-  HOST_CUDAARCH=61
-  HOST_RAJADIR=/usr/local/raja-0.12.1
+  #HOST_CUDADIR=/usr/local/cuda
+  #HOST_CUDAARCH=61
+  #HOST_RAJADIR=/usr/local/raja-0.12.1
+  HOST_CUDADIR=
+  HOST_CUDAARCH=
+  HOST_RAJADIR=
 
 elif [ $HOST == "descartes" ]
 then
