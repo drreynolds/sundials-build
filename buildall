@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# remove previous installations
+\rm -rf ../install_* ../examples_*
+
+# 64-bit indices, optimized install
+./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=../install_opt SUNEXAMPLEPREFIX=../examples_opt ./configure
+make -j install
+
+# 64-bit indices, debug install
+./cleanup && SUNINDEXTYPE=64 SUNBUILDTYPE=DBG SUNINSTALLPREFIX=../install_dbg SUNEXAMPLEPREFIX=../examples_dbg ./configure
+make -j install
+
+# 32-bit indices, optimized install
+./cleanup && SUNINDEXTYPE=32 SUNINSTALLPREFIX=../install_opt_int32 SUNEXAMPLEPREFIX=../examples_opt_int32 ./configure
+make -j install
+
+# 32-bit indices, debug install
+./cleanup && SUNINDEXTYPE=32 SUNBUILDTYPE=DBG SUNINSTALLPREFIX=../install_dbg_int32 SUNEXAMPLEPREFIX=../examples_dbg_int32 ./configure
+make -j install
