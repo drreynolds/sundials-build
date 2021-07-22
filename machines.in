@@ -17,6 +17,7 @@
 #       LAPACKLIB -- LAPACK libraries (e.g., -L/usr/lib -llapack)
 #       HYPREDIR -- HYPRE installation location
 #       PETSCDIR -- PETSc installation location
+#       MAGMADIR -- MAGMA installation location
 #       CUDADIR -- CUDA installation location
 #       CUDAARCH -- CUDA architecture
 #       RAJADIR -- RAJA installation location
@@ -57,30 +58,27 @@ then
   HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
   HOST_PETSCDIR=
   HOST_SLUDISTDIR=
+  HOST_MAGMADIR=
 
 elif [ $HOST == "behemoth" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-7.4
-  HOST_KLUDIR=
-  HOST_HYPREDIR=
-  HOST_LAPACKLIB=
-  if [ $SUNREALTYPE == "double" ]
-  then
-    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-7.4
-    HOST_HYPREDIR=/usr/local/hypre-2.18.2/gcc-7.4-int64
-    HOST_LAPACKLIB=/usr/local/openblas-0.3.7/gcc-7.4/lib/libopenblas.a
-  fi
-  if [ $SUNREALTYPE == "single" ]
-  then
-    HOST_LAPACKLIB=/usr/local/openblas-0.3.7/gcc-7.4/lib/libopenblas.a
-  fi
+  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-10.2
+  HOST_KLUDIR=/usr/local/suite-sparse-5.8.1/gcc-10.2
+  HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-10.2
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.12/gcc-10.2/lib/libopenblas.a
   HOST_PETSCDIR=
   HOST_SLUDISTDIR=
+  if [ $SUNINDEXTYPE == "32" ]
+  then
+      HOST_MAGMADIR=/usr/local/magma-2.6.1
+  else
+      HOST_MAGMADIR=
+  fi
   HOST_CUDADIR=/usr/local/cuda
   HOST_CUDAARCH=61
-  HOST_RAJADIR=/usr/local/raja-0.13.0/gcc-7.4
+  HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-10.2
 
 elif [ $HOST == "cauchy" ]
 then
@@ -89,6 +87,7 @@ then
   HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-8.4
   HOST_KLUDIR=
   HOST_HYPREDIR=
+  HOST_MAGMADIR=
   if [ $SUNREALTYPE == "double" ]
   then
     HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-8.4
@@ -117,6 +116,7 @@ then
   HOST_LAPACKLIB=/usr/local/openblas-0.3.6/clang/lib/libopenblas.a
   HOST_HYPREDIR=/usr/local/hypre-2.15.1/gnu
   HOST_PETSCDIR=
+  HOST_MAGMADIR=
   if [ $SUNBUILDTYPE == "OPT" ]
   then
       SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O3"
@@ -141,6 +141,7 @@ then
   HOST_LAPACKLIB=
   HOST_PETSCDIR=
   HOST_SLUDISTDIR=
+  HOST_MAGMADIR=
   #HOST_CUDADIR=/users/reynolds/sw/cuda-11.3.0
   #HOST_CUDAARCH=60
   #HOST_RAJADIR=/users/reynolds/sw/raja-0.13.0
@@ -199,6 +200,12 @@ else
     HOST_CUDADIR=
     HOST_CUDAARCH=
   fi
+  if [ spack location -i magma ];
+  then
+    HOST_MAGMADIR=`spack location -i magma`
+  else
+    HOST_MAGMADIR=
+  fi
   if [ spack location -i raja ];
   then
     HOST_RAJADIR=`spack location -i raja`
@@ -230,6 +237,7 @@ LAPACKLIB=${LAPACKLIB:-${HOST_LAPACKLIB}}
 HYPREDIR=${HYPREDIR:-${HOST_HYPREDIR}}
 PETSCDIR=${PETSCDIR:-${HOST_PETSCDIR}}
 SLUDISTDIR=${SLUDISTDIR:-${HOST_SLUDISTDIR}}
+MAGMADIR=${MAGMADIR:-${HOST_MAGMADIR}}
 CUDADIR=${CUDADIR:-${HOST_CUDADIR}}
 CUDAARCH=${CUDAARCH:-${HOST_CUDAARCH}}
 RAJADIR=${RAJADIR:-${HOST_RAJADIR}}
@@ -254,6 +262,7 @@ echo "  LAPACK libraries: $LAPACKLIB"
 echo "  HYPRE libraries: $HYPREDIR"
 echo "  PETSC libraries: $PETSCDIR"
 echo "  SuperLU-Dist libraries: $SLUDISTDIR"
+echo "  MAGMA libraries: $MAGMADIR"
 echo "  CUDA install location: $CUDADIR"
 echo "  CUDA architecture: $CUDAARCH"
 echo "  RAJA libraries: $RAJADIR"
