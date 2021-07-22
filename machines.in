@@ -48,17 +48,32 @@ SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
 SUNREALTYPE=${SUNREALTYPE:-"double"}
 
 # set hostname-specific defaults
-if [ $HOST == "longclaw" ]
+if [ $HOST == "Longclaw" ]
 then
 
-  HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3/gnu
-  HOST_KLUDIR=/usr/local/suitesparse-5.2.0/gnu
-  HOST_LAPACKLIB=/usr/local/openblas-0.3.6/gnu/lib/libopenblas.a
-  HOST_HYPREDIR=/usr/local/hypre-2.16.0/gnu
-  HOST_PETSCDIR=
+  HOST_ANSWERS=/home/drreynolds/research/Sundials/local_answers
+  HOST_MPIDIR=/usr/local/mpich-3.3.2
+  HOST_KLUDIR=
+  HOST_HYPREDIR=
+  if [ $SUNREALTYPE == "double" ]
+  then
+    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0
+    HOST_HYPREDIR=/usr/local/hypre-2.20.0
+  fi
+  HOST_LAPACKLIB=
   HOST_SLUDISTDIR=
   HOST_MAGMADIR=
+  HOST_PETSCDIR=
+  if [ $SUNINDEXTYPE == "32" ]
+  then
+    if [ $SUNREALTYPE == "double" ]
+    then
+      HOST_PETSCDIR=/usr/local/petsc-3.14.1
+    fi
+  fi
+  HOST_CUDADIR=/usr/local/cuda
+  HOST_CUDAARCH=61
+  HOST_RAJADIR=/usr/local/raja-0.12.1
 
 elif [ $HOST == "behemoth" ]
 then
@@ -84,14 +99,14 @@ elif [ $HOST == "cauchy" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-8.4
+  HOST_MPIDIR=/usr/local/mpich-3.3.2
   HOST_KLUDIR=
   HOST_HYPREDIR=
   HOST_MAGMADIR=
   if [ $SUNREALTYPE == "double" ]
   then
-    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gcc-8.4
-    HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-8.4
+    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0
+    HOST_HYPREDIR=/usr/local/hypre-2.20.0
   fi
   HOST_LAPACKLIB=
   HOST_SLUDISTDIR=
@@ -100,12 +115,15 @@ then
   then
     if [ $SUNREALTYPE == "double" ]
     then
-      HOST_PETSCDIR=/usr/local/petsc-3.14.1/gcc-8.4
+      HOST_PETSCDIR=/usr/local/petsc-3.14.1
     fi
   fi
-  HOST_CUDADIR=/usr/local/cuda
-  HOST_CUDAARCH=61
-  HOST_RAJADIR=/usr/local/raja-0.13.0/gcc-8.4
+  #HOST_CUDADIR=/usr/local/cuda
+  #HOST_CUDAARCH=61
+  #HOST_RAJADIR=/usr/local/raja-0.12.1
+  HOST_CUDADIR=
+  HOST_CUDAARCH=
+  HOST_RAJADIR=
 
 elif [ $HOST == "descartes" ]
 then
