@@ -96,34 +96,25 @@ then
   HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-10.2
 
 elif [ $HOST == "cauchy" ]
+
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/usr/local/mpich-3.3.2
-  HOST_KLUDIR=
-  HOST_HYPREDIR=
-  HOST_MAGMADIR=
-  if [ $SUNREALTYPE == "double" ]
-  then
-    HOST_KLUDIR=/usr/local/suite-sparse-5.3.0
-    HOST_HYPREDIR=/usr/local/hypre-2.20.0
-  fi
-  HOST_LAPACKLIB=
-  HOST_SLUDISTDIR=
-  HOST_PETSCDIR=
+  HOST_KLUDIR=/usr/local/suite-sparse-5.3.0
+  HOST_HYPREDIR=/usr/local/hypre-2.20.0
   if [ $SUNINDEXTYPE == "32" ]
   then
-    if [ $SUNREALTYPE == "double" ]
-    then
-      HOST_PETSCDIR=/usr/local/petsc-3.14.1
-    fi
+      HOST_MAGMADIR=/usr/local/magma-2.6.1
+  else
+      HOST_MAGMADIR=
   fi
-  #HOST_CUDADIR=/usr/local/cuda
-  #HOST_CUDAARCH=61
-  #HOST_RAJADIR=/usr/local/raja-0.12.1
-  HOST_CUDADIR=
-  HOST_CUDAARCH=
-  HOST_RAJADIR=
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.12/lib/libopenblas.a
+  HOST_SLUDISTDIR=
+  HOST_PETSCDIR=
+  HOST_CUDADIR=/usr/local/cuda
+  HOST_CUDAARCH=61
+  HOST_RAJADIR=/usr/local/raja-0.12.1
 
 elif [ $HOST == "descartes" ]
 then
