@@ -79,10 +79,14 @@ elif [ $HOST == "behemoth" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-10.2
-  HOST_KLUDIR=/usr/local/suite-sparse-5.8.1/gcc-10.2
-  HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-10.2
-  HOST_LAPACKLIB=/usr/local/openblas-0.3.12/gcc-10.2/lib/libopenblas.a
+  # HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-10.2
+  # HOST_KLUDIR=/usr/local/suite-sparse-5.8.1/gcc-10.2
+  # HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-10.2
+  # HOST_LAPACKLIB=/usr/local/openblas-0.3.12/gcc-10.2/lib/libopenblas.a
+  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-7.5.0
+  HOST_KLUDIR=/usr/local/suite-sparse-5.8.1/gcc-7.5.0
+  HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-7.5.0
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.12/gcc-7.5.0/lib/libopenblas.a
   HOST_PETSCDIR=
   HOST_SLUDISTDIR=
   if [ $SUNINDEXTYPE == "32" ]
@@ -93,7 +97,8 @@ then
   fi
   HOST_CUDADIR=/usr/local/cuda
   HOST_CUDAARCH=61
-  HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-10.2
+  # HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-10.2
+  HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-7.5.0
 
 elif [ $HOST == "cauchy" ]
 then
