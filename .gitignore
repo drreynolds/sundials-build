@@ -23,4 +23,4 @@ install_manifest.txt
 build.out
 SUNDIALSConfig.cmake
 SUNDIALSConfigVersion.cmake
-
+POSIX_TIMER_TEST
