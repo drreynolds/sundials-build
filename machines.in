@@ -96,7 +96,26 @@ then
   HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-10.2
 
 elif [ $HOST == "cauchy" ]
+then
 
+  HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
+  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-9.3.0
+  HOST_KLUDIR=/usr/local/suite-sparse-5.8.1/gcc-9.3.0
+  HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-9.3.0
+  if [ $SUNINDEXTYPE == "32" ]
+  then
+      HOST_MAGMADIR=/usr/local/magma-2.6.1/gcc-9.3.0
+  else
+      HOST_MAGMADIR=
+  fi
+  HOST_SLUDISTDIR=
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.12/gcc-9.3.0/lib/libopenblas.a
+  HOST_PETSCDIR=
+  HOST_CUDADIR=/usr/local/cuda
+  HOST_CUDAARCH=61
+  HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-9.3.0
+
+elif [ $HOST == "dirac" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
