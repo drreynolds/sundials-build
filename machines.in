@@ -185,12 +185,6 @@ then
   HOST_CUDADIR=
   HOST_CUDAARCH=
   HOST_RAJADIR=
-  if [ $SUNBUILDTYPE == "OPT" ]
-  then
-      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O3"
-  else
-      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O0 -g"
-  fi
 
 elif [ $HOST == "maneframe2" ]
 then
