@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+# 32-bit indices, optimized install
+./cleanup && SUNINDEXTYPE=32 ./configure ../work
+make -j
