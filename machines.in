@@ -144,10 +144,10 @@ elif [ $HOST == "descartes" ]
 then
 
   HOST_ANSWERS=/Users/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3/gnu
-  HOST_KLUDIR=/usr/local/suite-sparse-5.3.0/gnu
-  HOST_LAPACKLIB=/usr/local/openblas-0.3.6/clang/lib/libopenblas.a
-  HOST_HYPREDIR=/usr/local/hypre-2.15.1/gnu
+  HOST_MPIDIR=/usr/local/mpich-3.3.2
+  HOST_KLUDIR=/usr/local/suite-sparse-5.8.1
+  HOST_LAPACKLIB=/usr/local/openblas-0.3.12
+  HOST_HYPREDIR=/usr/local/hypre-2.20.0
   HOST_PETSCDIR=
   HOST_MAGMADIR=
   if [ $SUNBUILDTYPE == "OPT" ]
@@ -156,12 +156,6 @@ then
   else
       SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O0 -g"
   fi
-  # if [ $SUNINDEXTYPE == "64" ]
-  # then
-  #   HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gnu_int64
-  # else
-  #   HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gnu_int32
-  # fi
   HOST_SLUDISTDIR=
 
 elif [ $HOST == "maneframe2" ]
