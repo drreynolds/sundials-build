@@ -74,6 +74,7 @@ then
   HOST_CUDADIR=/usr/local/cuda
   HOST_CUDAARCH=61
   HOST_RAJADIR=/usr/local/raja-0.12.1
+  HOST_OPENMPFLAG=-fopenmp
 
 elif [ $HOST == "behemoth" ]
 then
@@ -99,6 +100,7 @@ then
   HOST_CUDAARCH=61
   # HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-10.2
   HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-7.5.0
+  HOST_OPENMPFLAG=-fopenmp
 
 elif [ $HOST == "cauchy" ]
 then
@@ -119,6 +121,7 @@ then
   HOST_CUDADIR=/usr/local/cuda
   HOST_CUDAARCH=61
   HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-9.3.0
+  HOST_OPENMPFLAG=-fopenmp
 
 elif [ $HOST == "dirac" ]
 then
@@ -139,6 +142,7 @@ then
   HOST_CUDADIR=/usr/local/cuda
   HOST_CUDAARCH=61
   HOST_RAJADIR=/usr/local/raja-0.12.1
+  HOST_OPENMPFLAG=-fopenmp
 
 elif [ $HOST == "descartes" ]
 then
@@ -163,6 +167,33 @@ then
   #   HOST_SLUDISTDIR=/usr/local/superlu-dist-6.1.1/gnu_int32
   # fi
   HOST_SLUDISTDIR=
+  HOST_OPENMPFLAG=-fopenmp
+
+elif [ $HOST == "asymptote" ]
+then
+
+  HOST_ANSWERS=/Users/dreynolds/research/Sundials/local_answers
+  HOST_MPIDIR=/opt/local/openmpi-4.1.3
+  HOST_KLUDIR=/opt/local/suite-sparse-5.12.0
+  HOST_LAPACKLIB=/opt/local/openblas-0.3.20
+  HOST_HYPREDIR=/opt/local/hypre-2.24.0
+  if [ $SUNINDEXTYPE == "32" ]
+  then
+      HOST_PETSCDIR=/opt/local/petsc-3.17.0
+  else
+      HOST_PETSCDIR=
+  fi
+  HOST_MAGMADIR=
+  HOST_SLUDISTDIR=
+  HOST_CUDADIR=
+  HOST_CUDAARCH=
+  HOST_RAJADIR=
+  if [ $SUNBUILDTYPE == "OPT" ]
+  then
+      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O3"
+  else
+      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O0 -g"
+  fi
 
 elif [ $HOST == "maneframe2" ]
 then
@@ -181,6 +212,7 @@ then
   HOST_CUDADIR=
   HOST_CUDAARCH=
   HOST_RAJADIR=
+  HOST_OPENMPFLAG=
 
 else
 
@@ -245,6 +277,7 @@ else
   else
     HOST_RAJADIR=
   fi
+  HOST_OPENMPFLAG=
 
 fi
 
@@ -274,6 +307,7 @@ MAGMADIR=${MAGMADIR:-${HOST_MAGMADIR}}
 CUDADIR=${CUDADIR:-${HOST_CUDADIR}}
 CUDAARCH=${CUDAARCH:-${HOST_CUDAARCH}}
 RAJADIR=${RAJADIR:-${HOST_RAJADIR}}
+OPENMPFLAG=${OPENMPFLAG:-${HOST_OPENMPFLAG}}
 GENERATEANSWERS=${GENERATEANSWERS:-"0"}
 
 # output final build configuration setup
@@ -290,6 +324,7 @@ then
 fi
 echo "  optimization flags: $SUNOPTFLAGS"
 echo "  MPI libraries: $MPIDIR"
+echo "  OpenMP flag: $OPENMPFLAG"
 echo "  KLU libraries: $KLUDIR"
 echo "  LAPACK libraries: $LAPACKLIB"
 echo "  HYPRE libraries: $HYPREDIR"
