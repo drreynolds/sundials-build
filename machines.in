@@ -47,6 +47,9 @@ SUNINDEXTYPE=${SUNINDEXTYPE:-"64"}
 # set real type (or use default)
 SUNREALTYPE=${SUNREALTYPE:-"double"}
 
+# set build type (or use default)
+SUNBUILDTYPE=${SUNBUILDTYPE:-"OPT"}
+
 # set hostname-specific defaults
 if [ $HOST == "Longclaw" ]
 then
@@ -146,16 +149,16 @@ then
   HOST_ANSWERS=/Users/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/usr/local/mpich-3.3.2
   HOST_KLUDIR=/usr/local/suite-sparse-5.8.1
-  HOST_LAPACKLIB=/usr/local/openblas-0.3.12
   HOST_HYPREDIR=/usr/local/hypre-2.20.0
+  HOST_LAPACKLIB=
   HOST_PETSCDIR=
   HOST_MAGMADIR=
-  if [ $SUNBUILDTYPE == "OPT" ]
-  then
-      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O3"
-  else
-      SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O0 -g"
-  fi
+  # if [ $SUNBUILDTYPE == "OPT" ]
+  # then
+  #     SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O3"
+  # else
+  #     SUNOPTFLAGS="${SUNOPTFLAGS} -Wno-alloc-size-larger-than -O0 -g"
+  # fi
   HOST_SLUDISTDIR=
 
 elif [ $HOST == "maneframe2" ]
