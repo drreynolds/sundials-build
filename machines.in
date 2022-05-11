@@ -172,8 +172,8 @@ then
   HOST_ANSWERS=/Users/dreynolds/research/Sundials/local_answers
   HOST_MPIDIR=/opt/local/openmpi-4.1.3
   HOST_KLUDIR=/opt/local/suite-sparse-5.12.0
-  HOST_LAPACKLIB=/opt/local/openblas-0.3.20
   HOST_HYPREDIR=/opt/local/hypre-2.24.0
+  HOST_LAPACKLIB=
   if [ $SUNINDEXTYPE == "32" ]
   then
       HOST_PETSCDIR=/opt/local/petsc-3.17.0
