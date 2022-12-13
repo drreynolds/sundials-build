@@ -1,20 +1,12 @@
 #!/bin/bash -e
 
 # remove previous installations
-\rm -rf ../install_* ../examples_*
+\rm -rf ../install* ../examples*
 
-# 64-bit indices, optimized install
-./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=$PWD/../install_opt SUNEXAMPLEPREFIX=$PWD/../examples_opt ./configure
+# 64-bit indices
+./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=$PWD/../install_int64 SUNEXAMPLEPREFIX=$PWD/../examples_int64 ./configure
 make -j 5 install
 
-# 64-bit indices, debug install
-./cleanup && SUNINDEXTYPE=64 SUNBUILDTYPE=DBG SUNINSTALLPREFIX=$PWD/../install_dbg SUNEXAMPLEPREFIX=$PWD/../examples_dbg ./configure
-make -j 5 install
-
-# 32-bit indices, optimized install
-./cleanup && SUNINDEXTYPE=32 SUNINSTALLPREFIX=$PWD/../install_opt_int32 SUNEXAMPLEPREFIX=$PWD/../examples_opt_int32 ./configure
-make -j 5 install
-
-# 32-bit indices, debug install
-./cleanup && SUNINDEXTYPE=32 SUNBUILDTYPE=DBG SUNINSTALLPREFIX=$PWD/../install_dbg_int32 SUNEXAMPLEPREFIX=$PWD/../examples_dbg_int32 ./configure
+# 32-bit indices
+./cleanup && SUNINDEXTYPE=32 SUNINSTALLPREFIX=$PWD/../install_int32 SUNEXAMPLEPREFIX=$PWD/../examples_int32 ./configure
 make -j 5 install
