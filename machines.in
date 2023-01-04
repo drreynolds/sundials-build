@@ -117,21 +117,35 @@ elif [ $HOST == "cauchy" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/mpich-3.3.2/gcc-9.3.0
-  HOST_KLUDIR=/usr/local/suite-sparse-5.8.1/gcc-9.3.0
-  HOST_HYPREDIR=/usr/local/hypre-2.20.0/gcc-9.3.0
+  HOST_MPIDIR=/usr/local/openmpi-4.1.4/gcc-11.3.0
   if [ $SUNINDEXTYPE == "32" ]
   then
-      HOST_MAGMADIR=/usr/local/magma-2.6.1/gcc-9.3.0
+      HOST_KLUDIR=/usr/local/suite-sparse-5.13.0/gcc-11.3.0
+      HOST_HYPREDIR=/usr/local/hypre-2.26.0/gcc-11.3.0-int32
+      HOST_LAPACKLIB=/usr/local/openblas-0.3.21/gcc-11.3.0/lib/libopenblas.a
+      HOST_PETSCDIR=
+      HOST_SLUDISTDIR=/usr/local/superlu-dist-8.1.2/gcc-11.3.0
+      HOST_MAGMADIR=/usr/local/magma-2.7.0/gcc-11.3.0
+      HOST_GINKGODIR=
+      HOST_CUDADIR=/usr/local/cuda
+      HOST_CUDAARCH=61
+      HOST_RAJADIR=/usr/local/raja-0.13.0/gcc-11.3.0-cuda
+      HOST_KOKKOSDIR=/usr/local/kokkos-3.7.00/gcc-11.3.0/lib/cmake/Kokkos
+      HOST_KOKKOSKERNELSDIR=/usr/local/kokkos-kernels-3.7.00/gcc-11.3.0/lib/cmake/KokkosKernels
   else
+      HOST_KLUDIR=/usr/local/suite-sparse-5.13.0/gcc-11.3.0
+      HOST_HYPREDIR=/usr/local/hypre-2.26.0/gcc-11.3.0-int64
+      HOST_LAPACKLIB=/usr/local/openblas-0.3.21/gcc-11.3.0/lib/libopenblas.a
+      HOST_PETSCDIR=
+      HOST_SLUDISTDIR=/usr/local/superlu-dist-8.1.2/gcc-11.3.0
       HOST_MAGMADIR=
+      HOST_GINKGODIR=
+      HOST_CUDADIR=
+      HOST_CUDAARCH=
+      HOST_RAJADIR=
+      HOST_KOKKOSDIR=
+      HOST_KOKKOSKERNELSDIR=
   fi
-  HOST_SLUDISTDIR=
-  HOST_LAPACKLIB=/usr/local/openblas-0.3.12/gcc-9.3.0/lib/libopenblas.a
-  HOST_PETSCDIR=
-  HOST_CUDADIR=/usr/local/cuda
-  HOST_CUDAARCH=61
-  HOST_RAJADIR=/usr/local/raja-0.12.1/gcc-9.3.0
   HOST_OPENMPFLAG=-fopenmp
 
 elif [ $HOST == "dirac" ]

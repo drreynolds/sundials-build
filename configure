@@ -116,7 +116,7 @@ fi
 RAJA_CONF=" -DENABLE_RAJA:BOOL=0"
 if [[ ! -z "$RAJADIR" ]]
 then
-  RAJA_CONF=" -DENABLE_RAJA:BOOL=1 -DRAJA_DIR=$RAJADIR"
+  RAJA_CONF=" -DENABLE_RAJA:BOOL=1 -DRAJA_DIR=$RAJADIR -Dcamp_DIR=$RAJADIR/lib/cmake/camp"
 fi
 
 # conditionally build F2003 interface

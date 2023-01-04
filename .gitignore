@@ -13,6 +13,7 @@ cmake*
 *.cmake
 examples
 include
+benchmarks
 src
 test
 PETSC_test
