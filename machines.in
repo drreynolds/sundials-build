@@ -82,19 +82,19 @@ elif [ $HOST == "behemoth" ]
 then
 
   HOST_ANSWERS=/home/dreynolds/research/Sundials/local_answers
-  HOST_MPIDIR=/usr/local/openmpi-4.1.4/gcc-11.3.0
+  HOST_MPIDIR=/usr/local/openmpi-4.1.5/gcc-11.3.0
   if [ $SUNINDEXTYPE == "32" ]
   then
       HOST_KLUDIR=/usr/local/suite-sparse-5.13.0/gcc-11.3.0
-      HOST_HYPREDIR=/usr/local/hypre-2.26.0/gcc-11.3.0
-      HOST_LAPACKLIB=/usr/local/openblas-0.3.21/gcc-11.3.0/lib/libopenblas.a
+      HOST_HYPREDIR=/usr/local/hypre-2.28.0/gcc-11.3.0
+      HOST_LAPACKLIB=/usr/local/openblas-0.3.23/gcc-11.3.0/lib/libopenblas.a
       HOST_PETSCDIR=
-      HOST_SLUDISTDIR=/usr/local/superlu-dist-8.1.1/gcc-11.3.0
-      HOST_MAGMADIR=/usr/local/magma-2.6.2/gcc-11.3.0
-      HOST_GINKGODIR=/usr/local/ginkgo-1.5.0/gcc-11.3.0
+      HOST_SLUDISTDIR=/usr/local/superlu-dist-8.1.2/gcc-11.3.0
+      HOST_MAGMADIR=/usr/local/magma-2.7.1/gcc-11.3.0
+      HOST_GINKGODIR=
       HOST_CUDADIR=/usr/local/cuda
       HOST_CUDAARCH=61
-      HOST_RAJADIR=/usr/local/raja-0.13.0/gcc-11.3.0
+      HOST_RAJADIR=/usr/local/raja-2022.10.4/gcc-11.3.0
       HOST_KOKKOSDIR=/usr/local/kokkos-3.7.00/gcc-11.3.0/lib/cmake/Kokkos
       HOST_KOKKOSKERNELSDIR=/usr/local/kokkos-kernels-3.7.00/gcc-11.3.0/lib/cmake/KokkosKernels
   else
