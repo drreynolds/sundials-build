@@ -89,7 +89,7 @@ then
       HOST_HYPREDIR=/usr/local/hypre-2.28.0/gcc-11.3.0
       HOST_LAPACKLIB=/usr/local/openblas-0.3.23/gcc-11.3.0/lib/libopenblas.a
       HOST_PETSCDIR=
-      HOST_SLUDISTDIR=/usr/local/superlu-dist-8.1.2/gcc-11.3.0
+      HOST_SLUDISTDIR=
       HOST_MAGMADIR=/usr/local/magma-2.7.1/gcc-11.3.0
       HOST_GINKGODIR=
       HOST_CUDADIR=/usr/local/cuda
@@ -102,7 +102,7 @@ then
       HOST_HYPREDIR=/usr/local/hypre-2.28.0/gcc-11.3.0-int64
       HOST_LAPACKLIB=/usr/local/openblas-0.3.23/gcc-11.3.0/lib/libopenblas.a
       HOST_PETSCDIR=
-      HOST_SLUDISTDIR=/usr/local/superlu-dist-8.1.2/gcc-11.3.0-int64
+      HOST_SLUDISTDIR=
       HOST_MAGMADIR=
       HOST_GINKGODIR=
       HOST_CUDADIR=
