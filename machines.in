@@ -180,7 +180,7 @@ then
   HOST_PETSCDIR=
   HOST_MAGMADIR=
   HOST_SLUDISTDIR=
-  HOST_OPENMPFLAG=-fopenmp
+  HOST_OPENMPFLAG=
 
 elif [ $HOST == "asymptote" ]
 then
