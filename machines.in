@@ -20,6 +20,7 @@
 #       CUDADIR -- CUDA installation location
 #       CUDAARCH -- CUDA architecture
 #       RAJADIR -- RAJA installation location
+#       PYTHONEXEC -- Python executable name
 #       GENERATEANSWERS -- generate/use machine-specific test 'answers'
 #             1 -> generate 'answers', place in HOST_ANSWERS
 #             0 -> use answers in HOST_ANSWERS [default]
@@ -181,6 +182,7 @@ then
   HOST_MAGMADIR=
   HOST_SLUDISTDIR=
   HOST_OPENMPFLAG=
+  HOST_PYTHONEXEC=python3
 
 elif [ $HOST == "asymptote" ]
 then
@@ -333,6 +335,7 @@ OPENMPFLAG=${OPENMPFLAG:-${HOST_OPENMPFLAG}}
 GENERATEANSWERS=${GENERATEANSWERS:-"-1"}
 KOKKOSDIR=${KOKKOSDIR:-${HOST_KOKKOSDIR}}
 KOKKOSKERNELSDIR=${KOKKOSKERNELSDIR:-${HOST_KOKKOSKERNELSDIR}}
+PYTHONEXEC=${PYTHONEXEC:-${HOST_PYTHONEXEC}}
 
 # output final build configuration setup
 echo "Compiling SUNDIALS on host: $HOST"
@@ -359,5 +362,9 @@ echo "  CUDA architecture: $CUDAARCH"
 echo "  RAJA libraries: $RAJADIR"
 echo "  Kokkos libraries: $KOKKOSDIR"
 echo "  Kokkos-kernels libraries: $KOKKOSKERNELSDIR"
+if [[ ! -z "$PYTHONEXEC" ]]
+then
+  echo "  Python executable: $PYTHONEXEC"
+fi
 
 ####### End of machines.in #######
