@@ -3,10 +3,18 @@
 # remove previous installations
 \rm -rf ../install* ../examples*
 
+# set source directory based on command-line argument (if specified)
+if [ -n "$1" ]
+then
+    SRCDIR=$1
+else
+    SRCDIR=../work
+fi
+
 # 64-bit indices
-./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=$PWD/../install_int64 SUNEXAMPLEPREFIX=$PWD/../examples_int64 ./configure
+./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=$PWD/../install_int64 SUNEXAMPLEPREFIX=$PWD/../examples_int64 /configure $SRCDIR
 make -j 5 install
 
 # 32-bit indices
-./cleanup && SUNINDEXTYPE=32 SUNINSTALLPREFIX=$PWD/../install_int32 SUNEXAMPLEPREFIX=$PWD/../examples_int32 ./configure
+./cleanup && SUNINDEXTYPE=32 SUNINSTALLPREFIX=$PWD/../install_int32 SUNEXAMPLEPREFIX=$PWD/../examples_int32 ./configure $SRCDIR
 make -j 5 install

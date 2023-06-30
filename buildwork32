@@ -9,5 +9,5 @@ else
 fi
 
 # 32-bit indices, optimized install
-./cleanup && SUNINDEXTYPE=64 ./configure $SRCDIR
+./cleanup && SUNINDEXTYPE=32 ./configure $SRCDIR
 make -j

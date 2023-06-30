@@ -133,6 +133,14 @@ then
   OPENMP_CONF=" -DENABLE_OPENMP:BOOL=1 -DOpenMP_C_FLAGS:STRING='$OPENMPFLAG' -DOpenMP_CXX_FLAGS:STRING='$OPENMPFLAG'"
 fi
 
+# optionally set python executable name
+PYTHON_CONF=" "
+if [[ ! -z "$PYTHONEXEC" ]]
+then
+  PYTHON_CONF=" -DPYTHON_EXECUTABLE:STRING='$PYTHONEXEC'"
+fi
+
+
 
 
 # cmake command
@@ -178,4 +186,5 @@ cmake \
  $CUDA_CONF \
  $RAJA_CONF \
  $KOKKOS_CONF \
+ $PYTHON_CONF \
  $SRCDIR
