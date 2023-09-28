@@ -8,7 +8,7 @@ if [ -n "$1" ]
 then
     SRCDIR=$1
 else
-    SRCDIR=../work
+    SRCDIR=../develop
 fi
 
 # 64-bit indices
