@@ -8,11 +8,11 @@ if [ -n "$1" ]
 then
     SRCDIR=$1
 else
-    SRCDIR=../work
+    SRCDIR=../develop
 fi
 
 # 64-bit indices
-./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=$PWD/../install_int64 SUNEXAMPLEPREFIX=$PWD/../examples_int64 /configure $SRCDIR
+./cleanup && SUNINDEXTYPE=64 SUNINSTALLPREFIX=$PWD/../install_int64 SUNEXAMPLEPREFIX=$PWD/../examples_int64 ./configure $SRCDIR
 make -j 5 install
 
 # 32-bit indices
