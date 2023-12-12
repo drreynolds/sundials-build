@@ -25,3 +25,5 @@ build.out
 SUNDIALSConfig.cmake
 SUNDIALSConfigVersion.cmake
 POSIX_TIMER_TEST
+_deps
+lib
