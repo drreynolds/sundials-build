@@ -188,13 +188,13 @@ elif [ $HOST == "asymptote" ]
 then
 
   HOST_ANSWERS=
-  HOST_MPIDIR=/opt/local/openmpi-4.1.5
+  HOST_MPIDIR=/opt/local/openmpi-5.0.0
   HOST_KLUDIR=/opt/local/suite-sparse-7.1.0
-  HOST_HYPREDIR=/opt/local/hypre-2.29.0
+  HOST_HYPREDIR=/opt/local/hypre-2.30.0
   HOST_LAPACKLIB=
   if [ $SUNINDEXTYPE == "32" ]
   then
-      HOST_PETSCDIR=/opt/local/petsc-3.19.6
+      HOST_PETSCDIR=/opt/local/petsc-3.20.1_1
   else
       HOST_PETSCDIR=
   fi
