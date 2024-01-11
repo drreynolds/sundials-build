@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# clean from any previous build
+./cleanup
+
+# set source directory based on command-line argument (if specified)
+if [ -n "$1" ]
+then
+    SRCDIR=$1
+else
+    SRCDIR=../develop
+fi
+echo "  "
+echo "Configuring SUNDIALS from source code in $SRCDIR"
+echo "  "
+
+cmake -C ./asymptote-config.txt $SRCDIR
