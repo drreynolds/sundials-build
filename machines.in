@@ -71,7 +71,7 @@ then
       HOST_KOKKOSDIR=/usr/local/kokkos-4.0.00/gcc-11.3.0/lib/cmake/Kokkos
       HOST_KOKKOSKERNELSDIR=
   else
-      HOST_KLUDIR=/usr/local/suite-sparse-5.13.0/gcc-11.3.0-int64
+      HOST_KLUDIR=/usr/local/suite-sparse-5.13.0/gcc-11.3.0
       HOST_HYPREDIR=/usr/local/hypre-2.29.0/gcc-11.3.0-int64
       HOST_LAPACKLIB=/usr/local/openblas-0.3.24/gcc-11.3.0/lib/libopenblas.a
       HOST_PETSCDIR=
